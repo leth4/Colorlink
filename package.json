@@ -1,0 +1,7 @@
+{
+  "name": "com.leth.colorlink",
+  "version": "1.0.0",
+  "displayName": "Colorlink",
+  "description": "Quickly switch the palette of the game",
+  "unity": "2021.3"
+}
