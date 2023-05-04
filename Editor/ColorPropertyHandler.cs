@@ -26,7 +26,7 @@ namespace Colorlinker
                 {
                     var type = (guid.identifierType == 2) ? ColorProperty.Type.GameObject : ColorProperty.Type.Asset;
                     PaletteObject.instance.AddProperty(colorGroup, new ColorProperty(guid.ToString(), propertyCopy.propertyPath, type));
-                    PaletteObject.instance.ApplyColors();
+                    PaletteObject.instance.ApplyColors(type == ColorProperty.Type.Asset);
                 });
             }
         }

@@ -78,7 +78,7 @@ namespace Colorlinker
 
                         property.ObjectName = obj.name;
 
-                        if (!includeAssets && property.ObjectType != ColorProperty.Type.Material) continue;
+                        if (!includeAssets && property.ObjectType == ColorProperty.Type.Asset) continue;
 
                         if (property.ObjectType == ColorProperty.Type.Material)
                         {
