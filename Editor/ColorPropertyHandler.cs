@@ -18,7 +18,7 @@ namespace Colorlinker
             var propertyCopy = property.Copy();
             var guid = GlobalObjectId.GetGlobalObjectIdSlow(propertyCopy.serializedObject.targetObject);
 
-            if (propertyCopy.serializedObject.targetObject is not Component and not ScriptableObject) return;
+            if (!(propertyCopy.serializedObject.targetObject is Component) && !(propertyCopy.serializedObject.targetObject is ScriptableObject)) return;
 
             foreach (var colorGroup in PaletteObject.instance.ColorGroups)
             {

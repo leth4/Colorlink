@@ -62,7 +62,7 @@ namespace Colorlinker
                 {
                     foreach (var draggedObject in DragAndDrop.objectReferences)
                     {
-                        if (draggedObject is not Texture2D) continue;
+                        if (!(draggedObject is Texture2D)) continue;
                         Palette.AddPreset(ColorsFromImage((Texture2D)draggedObject));
                     }
                 });
@@ -237,12 +237,13 @@ namespace Colorlinker
         private void CreateDropArea(Rect rect, Action callback)
         {
             var evt = Event.current;
-            if (evt.type is not EventType.DragPerform and not EventType.DragUpdated) return;
+
+            if (evt.type != EventType.DragPerform && evt.type != EventType.DragUpdated) return;
             if (!rect.Contains(evt.mousePosition)) return;
 
             DragAndDrop.visualMode = DragAndDropVisualMode.Move;
 
-            if (evt.type is not EventType.DragPerform) return;
+            if (evt.type != EventType.DragPerform) return;
 
             DragAndDrop.AcceptDrag();
 
@@ -270,7 +271,10 @@ namespace Colorlinker
         private static Texture2D TextureFromColor(Color color, int size)
         {
             Color[] pix = new Color[size * size];
-            Array.Fill(pix, color);
+            for (int i = 0; i < pix.Length; i++)
+            {
+                pix[i] = color;
+            }
             Texture2D texture = new Texture2D(size, size);
             texture.SetPixels(pix);
             texture.Apply();
