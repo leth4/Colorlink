@@ -12,7 +12,7 @@ namespace Colorlinker
         private Vector2 _scrollPosition = Vector2.zero;
         private bool _showDetails;
 
-        [MenuItem("Window/Palette Editor", false, 10000)]
+        [MenuItem("Window/Palette", false, 10000)]
         public static void ShowWindow() => GetWindow<PaletteEditor>("Palette");
 
 
@@ -93,7 +93,11 @@ namespace Colorlinker
 
         public void DrawColorGroup(ColorGroup colorGroup)
         {
-            GUILayout.BeginVertical(new GUIStyle("Box") { padding = new RectOffset(1, 1, 0, 1) });
+            if (_showDetails)
+                GUILayout.BeginVertical(new GUIStyle("Box") { padding = new RectOffset(1, 1, 0, 1) });
+            else
+                GUILayout.BeginVertical();
+
             GUILayout.Space(5);
 
             GUILayout.BeginHorizontal();
