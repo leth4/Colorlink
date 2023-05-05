@@ -69,6 +69,11 @@ namespace Colorlinker
                 {
                     if (GlobalObjectId.TryParse(property.GuidString, out GlobalObjectId guidObject))
                     {
+                        if (property.ObjectType == ColorProperty.Type.GameObject && EditorSceneManager.GetActiveScene().path != AssetDatabase.GUIDToAssetPath(guidObject.assetGUID))
+                        {
+                            continue;
+                        }
+
                         var obj = GlobalObjectId.GlobalObjectIdentifierToObjectSlow(guidObject);
                         if (obj == null)
                         {
@@ -108,7 +113,8 @@ namespace Colorlinker
 
         public void ApplyColorsOnAllScenes()
         {
-            EditorSceneManager.SaveScene(EditorSceneManager.GetActiveScene(), EditorSceneManager.GetActiveScene().path);
+            var initialScenePath = EditorSceneManager.GetActiveScene().path;
+            EditorSceneManager.SaveScene(EditorSceneManager.GetActiveScene(), initialScenePath);
 
             foreach (var colorGroup in ColorGroups)
             {
@@ -130,10 +136,11 @@ namespace Colorlinker
                     }
                 }
             }
+
+            EditorSceneManager.OpenScene(initialScenePath);
         }
 
     }
-
 
     [System.Serializable]
     public struct PalettePreset
