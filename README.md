@@ -2,7 +2,7 @@
 
 An editor tool that allows to quickly swap the entire color palette of the game. Works with materials, components, prefabs and assets, by directly linking SerializeProperties and material properties to the palette — no extra components needed! The tool is **editor only** and can't be used in builds.
 
-![image](https://user-images.githubusercontent.com/44412176/236401799-2da2a3b0-2fd8-4a06-bee8-ee18d2210e20.png)
+![image](https://user-images.githubusercontent.com/44412176/236405859-6416a5f9-b133-4374-9ac6-5ae11986c54f.gif)
 
 ## Compatibility
 
