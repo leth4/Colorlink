@@ -47,6 +47,7 @@ namespace Colorlinker
                 foreach (var property in PaletteObject.instance.ColorGroups[i].Properties)
                 {
                     if (property.GuidString != _guidString) continue;
+                    if (!_colorProperties.Contains(property.PropertyPath)) continue;
                     _selectors[_colorProperties.IndexOf(property.PropertyPath)] = i + 1;
                 }
             }
