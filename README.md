@@ -30,13 +30,16 @@ and point UPM to your local copy.
 
 1. Right-click on any color property in the inspector of any component, prefab or asset.
 2. In the context menu, select `Link Color` and then the palette element name.
-3. A little `→` next to the name will show that the property is now linked! Its color will now change every time you change it in the Palette Window.
+3. A little `→` next to the name will show that the property is now linked! Its color will now change every time you change it in the Palette Window. You can unlink it via the same menu.
+
+![image](https://user-images.githubusercontent.com/44412176/236387862-a2e81ea4-11e4-4074-bbff-6e4cc952f2ea.png)
+![image](https://user-images.githubusercontent.com/44412176/236388019-7dee1343-33ce-459c-8e12-3a002ee0a5b7.png)
 
 You can freely move and rename objects with linked properties. The references to the properties are kept the same way that SerializeFields would keep them, and they are not easily lost. 
 
 Note that properties in the custom editors will only work if created using SerializedProperty.
 
-If you want to apply the same linkings to a component of the same type, right-click on the first component header and select `Copy Color Links`. For the next component, select `Paste Color Links`. The same changes will apply.
+If you want to apply the same linkings to a component of the same type, right-click on the first component header and select `Copy Color Links`. For the next component, select `Paste Color Links`.
 
 ### Linking material properties
 
@@ -44,6 +47,9 @@ If you want to apply the same linkings to a component of the same type, right-cl
 2. In the context menu, select "Link Colors". An additional window will open.
 3. For each property you want to link, select the palette element from the drop-down menu.
 4. Click "Apply" at the bottom of the window. The properties are now linked!
+
+![image](https://user-images.githubusercontent.com/44412176/236388605-813e4f86-54fa-4416-a420-17c0411e0c70.png)
+![image](https://user-images.githubusercontent.com/44412176/236388615-57969e2c-f603-4644-a60e-1e25b8879fc2.png)
 
 ### Managing the palette
 
