@@ -18,7 +18,7 @@ Add the package to your project via the [Package Manager](https://docs.unity3d.c
 ### Creating a palette
 
 1. Open the palette editor via Window → Palette.
-2. Click on the `+` button to create palette elements, each with the name and color assign. Give every element a unique name.
+2. Click on the `+` button to create palette elements, each with the name and color assigned. Give every element a unique name.
 
 ### Linking serialized properties
 
@@ -31,7 +31,7 @@ Add the package to your project via the [Package Manager](https://docs.unity3d.c
 
 You can freely move and rename objects with linked properties. The references to the properties are kept the same way that SerializeFields would keep them, and they are not easily lost. 
 
-Note that properties in the custom editors will only work if created using SerializedProperty.
+Note that properties in the custom editors can only be linked if created using SerializedProperty.
 
 If you want to apply the same linkings to a component of the same type, right-click on the first component header and select `Copy Color Links`. For the next component, select `Paste Color Links`.
 
@@ -51,9 +51,9 @@ To see linked properties, click on the eye icon and unfold the palette elements 
 
 When you edit your palette, changes to GameObject on the current scene and materials apply automatically. Changing assets and different scenes takes time, so you'll need to click the corresponding buttons to apply changes.
 
-You can move palette elements with arrow buttons on the right. You can also rename them freely — the linkings won't be lost.
+You can move palette elements with arrow buttons on the right. You can also rename them freely — the links won't be lost.
 
-The palette stores its data in the `Palette.asset` file in the `ProjectSettings` folder, which is a part of the version control.
+The palette stores its data in the `Palette.asset` file in the `ProjectSettings` folder, which is subject to version control.
 
 ![image](https://user-images.githubusercontent.com/44412176/236402915-91264ec8-4278-4a2d-9118-8ca699fceeed.png)
 
@@ -62,6 +62,4 @@ The palette stores its data in the `Palette.asset` file in the `ProjectSettings`
 1. Click on the button with a save icon under palette elements. That will create a new palette preset.
 2. You can swap the current palette for a preset by clicking the hand icon next to a preset, or delete it by clicking the cross icon.
 
-Make sure the image has a `Sprite` texture type and `Read/Write` is enabled!
-
-You can also turn a palette image into a preset by dragging it directly on the preset area. Note that only the first 30 colors found will be added to the preset.
+You can also turn a palette image into a preset by dragging it directly on the preset area. Note that only the first 30 colors found will be added to the preset. Make sure that the image has a `Sprite` texture type and `Read/Write` is enabled!
