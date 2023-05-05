@@ -8,18 +8,12 @@ An editor tool that allows to quickly swap the entire color palette of the game.
 
 Unity 2020.3 or higher.
 
-// TODO: Try older versions
-
 ## Installation
 
-Add the package to your project via
-[UPM](https://docs.unity3d.com/Manual/upm-ui.html) using the Git URL
-`https://github.com/letharqic/Colorlink.git`. You can also clone the repository
-and point UPM to your local copy.
+Add the package to your project via the [Package Manager](https://docs.unity3d.com/Manual/upm-ui.html) using the Git URL
+`https://github.com/letharqic/Colorlink.git`. You can also clone the repository and point the Package Manager to your local copy.
 
 ## Usage
-
-// TODO: Add images
 
 ### Creating a palette
 
@@ -60,6 +54,8 @@ When you edit your palette, changes to GameObject on the current scene and mater
 You can move palette elements with arrow buttons on the right. You can also rename them freely — the linkings won't be lost.
 
 The palette stores its data in the `Palette.asset` file in the `ProjectSettings` folder, which is a part of the version control.
+
+![image](https://user-images.githubusercontent.com/44412176/236402915-91264ec8-4278-4a2d-9118-8ca699fceeed.png)
 
 ### Using palette presets
 
