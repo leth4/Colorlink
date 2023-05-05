@@ -2,6 +2,6 @@
   "name": "com.leth.colorlink",
   "version": "1.0.0",
   "displayName": "Colorlink",
-  "description": "Quickly switch the game palette.",
+  "description": "An editor tool that allows to quickly swap the entire color palette of the game. Works with materials, components, prefabs and assets, by directly linking SerializeProperties and material properties to the palette — no extra components needed! The tool is editor only and can't be used in builds.",
   "unity": "2021.3"
 }

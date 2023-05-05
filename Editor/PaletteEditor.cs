@@ -19,6 +19,12 @@ namespace Colorlinker
         private void OnEnable()
         {
             FillFoldoutStateDictionary();
+            Undo.undoRedoPerformed += ApplyChanges;
+        }
+
+        private void OnDisable()
+        {
+            Undo.undoRedoPerformed -= ApplyChanges;
         }
 
         private void OnGUI()
@@ -77,11 +83,13 @@ namespace Colorlinker
 
             GUILayout.EndScrollView();
 
-            if (GUI.changed)
-            {
-                Palette.ApplyColors();
-                Palette.SaveChanges();
-            }
+            if (GUI.changed) ApplyChanges();
+        }
+
+        private void ApplyChanges()
+        {
+            Palette.ApplyColors();
+            Palette.SaveChanges();
         }
 
         private void FillFoldoutStateDictionary()
