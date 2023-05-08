@@ -1,6 +1,6 @@
 {
     "name": "leth.colorlink.editor",
-    "rootNamespace": "",
+    "rootNamespace": "Colorlinker",
     "references": [],
     "includePlatforms": [],
     "excludePlatforms": [],

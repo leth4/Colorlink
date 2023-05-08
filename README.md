@@ -1,6 +1,6 @@
 # Colorlink
 
-An editor tool that allows to quickly swap the entire color palette of the game. Works with materials, components, prefabs and assets, by directly linking SerializeProperties and material properties to the palette — no extra components needed! The tool is **editor only** and can't be used in builds.
+An editor tool that allows to quickly swap the entire color palette of the game. Works with materials, components, prefabs and assets, by directly linking serialized properties and material properties to the palette — no extra components needed! The tool is **editor only** and can't be used in builds.
 
 ![image](https://user-images.githubusercontent.com/44412176/236405859-6416a5f9-b133-4374-9ac6-5ae11986c54f.gif)
 
@@ -18,7 +18,7 @@ Add the package to your project via the [Package Manager](https://docs.unity3d.c
 ### Creating a palette
 
 1. Open the palette editor via Window → Palette.
-2. Click on the `+` button to create palette elements, each with the name and color assigned. Give every element a unique name.
+2. Click on the `+` button to create palette elements, each with a name and a color assigned. Give every element a unique name.
 
 ### Linking serialized properties
 
@@ -40,7 +40,7 @@ If you want to apply the same linkings to a component of the same type, right-cl
 1. Right-click on the material name at the top of the inspector.
 2. In the context menu, select "Link Colors". An additional window will open.
 3. For each property you want to link, select the palette element from the drop-down menu.
-4. Click "Apply" at the bottom of the window. The properties are now linked!
+4. Click `Link` at the bottom of the window. The properties are now linked!
 
 ![image](https://user-images.githubusercontent.com/44412176/236388605-813e4f86-54fa-4416-a420-17c0411e0c70.png)
 ![image](https://user-images.githubusercontent.com/44412176/236388615-57969e2c-f603-4644-a60e-1e25b8879fc2.png)

@@ -87,12 +87,27 @@ namespace Colorlinker
 
                         if (property.ObjectType == ColorProperty.Type.Material)
                         {
-                            ((Material)obj).SetColor(property.PropertyPath, colorGroup.Color);
+                            var mat = (Material)obj;
+                            if (!((Material)obj).HasProperty(property.PropertyPath))
+                            {
+                                propertiesToRemove.Add(property);
+                            }
+                            else
+                            {
+                                ((Material)obj).SetColor(property.PropertyPath, colorGroup.Color);
+                            }
                             continue;
                         }
 
                         var serializedObject = new UnityEditor.SerializedObject(guidObject.identifierType == 3 ? obj : (Component)obj);
                         var serializedProperty = serializedObject.FindProperty(property.PropertyPath);
+
+                        if (serializedProperty == null)
+                        {
+                            propertiesToRemove.Add(property);
+                            continue;
+                        }
+
                         serializedProperty.colorValue = colorGroup.Color;
                         EditorUtility.SetDirty(serializedObject.targetObject);
                         serializedObject.ApplyModifiedProperties();
@@ -118,6 +133,7 @@ namespace Colorlinker
 
             foreach (var colorGroup in ColorGroups)
             {
+                var propertiesToRemove = new List<ColorProperty>();
                 foreach (var property in colorGroup.Properties)
                 {
                     if (GlobalObjectId.TryParse(property.GuidString, out GlobalObjectId guidObject))
@@ -125,15 +141,39 @@ namespace Colorlinker
                         if (property.ObjectType != ColorProperty.Type.GameObject) continue;
 
                         EditorSceneManager.OpenScene(AssetDatabase.GUIDToAssetPath(guidObject.assetGUID));
-                        var component = (Component)GlobalObjectId.GlobalObjectIdentifierToObjectSlow(guidObject);
-                        var serializedObject = new UnityEditor.SerializedObject(component);
+
+                        var obj = GlobalObjectId.GlobalObjectIdentifierToObjectSlow(guidObject);
+
+                        if (obj == null)
+                        {
+                            propertiesToRemove.Add(property);
+                            continue;
+                        }
+
+                        var serializedObject = new UnityEditor.SerializedObject((Component)obj);
                         var serializedProperty = serializedObject.FindProperty(property.PropertyPath);
+
+                        if (serializedProperty == null)
+                        {
+                            propertiesToRemove.Add(property);
+                            continue;
+                        }
+
                         serializedProperty.colorValue = colorGroup.Color;
                         EditorUtility.SetDirty(serializedObject.targetObject);
                         serializedObject.ApplyModifiedProperties();
 
                         EditorSceneManager.SaveScene(EditorSceneManager.GetActiveScene(), AssetDatabase.GUIDToAssetPath(guidObject.assetGUID));
                     }
+                    else
+                    {
+                        propertiesToRemove.Add(property);
+                    }
+                }
+
+                foreach (var property in propertiesToRemove)
+                {
+                    colorGroup.RemoveProperty(property);
                 }
             }
 
