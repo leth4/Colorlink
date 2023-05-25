@@ -1,7 +1,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace Colorlinker
+namespace Colorlink
 {
     [System.Serializable]
     public class ColorGroup

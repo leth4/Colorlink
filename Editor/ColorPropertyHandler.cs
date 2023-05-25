@@ -1,7 +1,7 @@
 using UnityEngine;
 using UnityEditor;
 
-namespace Colorlinker
+namespace Colorlink
 {
     public static class ColorPropertyHandler
     {

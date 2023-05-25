@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEditor;
 using UnityEngine;
 
-namespace Colorlinker
+namespace Colorlink
 {
     public class PaletteEditor : EditorWindow
     {

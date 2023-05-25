@@ -2,7 +2,7 @@ using System;
 using System.Collections.Generic;
 using UnityEditor;
 
-namespace Colorlinker
+namespace Colorlink
 {
     public static class ComponentContextMenu
     {

@@ -4,7 +4,7 @@ using UnityEngine;
 using UnityEditor;
 using UnityEditor.SceneManagement;
 
-namespace Colorlinker
+namespace Colorlink
 {
     [FilePath("/ProjectSettings/Palette.asset", FilePathAttribute.Location.ProjectFolder)]
     public class PaletteObject : ScriptableSingleton<PaletteObject>

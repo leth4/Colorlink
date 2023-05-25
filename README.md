@@ -1,6 +1,6 @@
 # Colorlink
 
-An editor tool that allows to quickly swap the entire color palette of the game. Works with materials, components, prefabs and assets, by directly linking serialized properties and material properties to the palette — no extra components needed! The tool is **editor only** and can't be used in builds.
+An editor tool that allows to quickly change the entire color palette of the game. Works with materials, components, prefabs and assets, by directly linking serialized properties and material properties to the palette — no extra components needed! The tool is **editor only** and can't be used in builds.
 
 ![image](https://user-images.githubusercontent.com/44412176/236405859-6416a5f9-b133-4374-9ac6-5ae11986c54f.gif)
 
@@ -33,7 +33,7 @@ You can freely move and rename objects with linked properties. The references to
 
 Note that properties in the custom editors can only be linked if created using SerializedProperty.
 
-If you want to apply the same linkings to a component of the same type, right-click on the first component header and select `Copy Color Links`. For the next component, select `Paste Color Links`.
+If you want to apply the same links to a component of the same type, right-click on the first component header and select `Copy Color Links`. For the next component, select `Paste Color Links`.
 
 ### Linking material properties
 
