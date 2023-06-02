@@ -11,6 +11,7 @@ namespace Colorlink
         [MenuItem("CONTEXT/Component/Copy Color Links", false, 10000)]
         private static void CopyColorLinks(MenuCommand command)
         {
+            Buffer = new Dictionary<Type, Dictionary<string, ColorGroup>>();
             var guid = GlobalObjectId.GetGlobalObjectIdSlow(command.context);
             var type = command.context.GetType();
             var serializedObject = new SerializedObject(command.context);

@@ -49,7 +49,7 @@ If you want to apply the same links to a component of the same type, right-click
 
 To see linked properties, click on the eye icon and unfold the palette elements in question. **You can drag and drop properties** between elements to re-link them!
 
-When you edit your palette, changes to GameObject on the current scene and materials apply automatically. Changing assets and different scenes takes time, so you'll need to click the corresponding buttons to apply changes.
+When you edit your palette, changes to GameObjects on the current scene and materials apply automatically. Changing assets and other scenes takes time, so you'll need to click the corresponding buttons to apply changes.
 
 You can move palette elements with arrow buttons on the right. You can also rename them freely — the links won't be lost.
 
