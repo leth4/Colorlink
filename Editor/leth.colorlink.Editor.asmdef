@@ -2,7 +2,9 @@
     "name": "leth.colorlink.editor",
     "rootNamespace": "Colorlink",
     "references": [],
-    "includePlatforms": [],
+    "includePlatforms": [
+        "Editor"
+    ],
     "excludePlatforms": [],
     "allowUnsafeCode": false,
     "overrideReferences": false,
