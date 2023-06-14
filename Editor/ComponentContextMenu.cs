@@ -8,6 +8,7 @@ namespace Colorlink
     public static class ComponentContextMenu
     {
         public static Dictionary<Type, Dictionary<string, ColorGroup>> Buffer = new Dictionary<Type, Dictionary<string, ColorGroup>>();
+        private static int _timesPasteApplied = -1;
 
         [MenuItem("CONTEXT/Component/Copy Color Links", false, 10000)]
         private static void CopyColorLinks(MenuCommand command)
@@ -47,6 +48,8 @@ namespace Colorlink
             var guidString = ColorPropertyHandler.VerifyGUIDForPrefabStage(guid.ToString());
             var isPrefabStage = PrefabStageUtility.GetCurrentPrefabStage();
 
+            if (isPrefabStage) _timesPasteApplied = _timesPasteApplied == -1 ? 1 : _timesPasteApplied + 1;
+
             var properties = new List<SerializedProperty>();
             var serializedProperty = serializedObject.GetIterator();
             while (serializedProperty.NextVisible(true))
@@ -60,11 +63,16 @@ namespace Colorlink
                 foreach (var property in properties)
                 {
                     if (property.propertyPath != propertyLink.Key) continue;
-
                     var propertyType = (guid.identifierType == 2 && !isPrefabStage) ? ColorProperty.Type.GameObject : ColorProperty.Type.Asset;
                     PaletteObject.instance.AddProperty(propertyLink.Value, new ColorProperty(guidString, propertyLink.Key, propertyType));
-                    PaletteObject.instance.ApplyColors(propertyType == ColorProperty.Type.Asset);
+                    PaletteObject.instance.ApplyColors();
                 }
+            }
+
+            if (_timesPasteApplied == Selection.gameObjects.Length && isPrefabStage)
+            {
+                PaletteObject.instance.ApplyColors(true);
+                _timesPasteApplied = -1;
             }
         }
     }
