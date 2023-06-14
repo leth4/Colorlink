@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using UnityEditor;
+using UnityEditor.SceneManagement;
 
 namespace Colorlink
 {
@@ -13,6 +14,7 @@ namespace Colorlink
         {
             Buffer = new Dictionary<Type, Dictionary<string, ColorGroup>>();
             var guid = GlobalObjectId.GetGlobalObjectIdSlow(command.context);
+            var guidString = ColorPropertyHandler.VerifyGUIDForPrefabStage(guid.ToString());
             var type = command.context.GetType();
             var serializedObject = new SerializedObject(command.context);
 
@@ -27,7 +29,7 @@ namespace Colorlink
             {
                 foreach (var property in properties)
                 {
-                    if (!colorGroup.Contains(guid.ToString(), property)) continue;
+                    if (!colorGroup.Contains(guidString, property)) continue;
 
                     if (!Buffer.ContainsKey(type))
                         Buffer.Add(type, new Dictionary<string, ColorGroup>());
@@ -45,6 +47,8 @@ namespace Colorlink
 
             var guid = GlobalObjectId.GetGlobalObjectIdSlow(command.context);
             var serializedObject = new SerializedObject(command.context);
+            var guidString = ColorPropertyHandler.VerifyGUIDForPrefabStage(guid.ToString());
+            var isPrefabStage = PrefabStageUtility.GetCurrentPrefabStage();
 
             var properties = new List<SerializedProperty>();
             var serializedProperty = serializedObject.GetIterator();
@@ -59,9 +63,9 @@ namespace Colorlink
                 {
                     if (property.propertyPath != propertyLink.Key) continue;
 
-                    var propertyType = (guid.identifierType == 2) ? ColorProperty.Type.GameObject : ColorProperty.Type.Asset;
-                    PaletteObject.instance.AddProperty(propertyLink.Value, new ColorProperty(guid.ToString(), propertyLink.Key, propertyType));
-                    PaletteObject.instance.ApplyColors();
+                    var propertyType = (guid.identifierType == 2 && !isPrefabStage) ? ColorProperty.Type.GameObject : ColorProperty.Type.Asset;
+                    PaletteObject.instance.AddProperty(propertyLink.Value, new ColorProperty(guidString, propertyLink.Key, propertyType));
+                    PaletteObject.instance.ApplyColors(propertyType == ColorProperty.Type.Asset);
                 }
             }
         }

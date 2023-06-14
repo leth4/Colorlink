@@ -59,7 +59,7 @@ namespace Colorlink
             }
         }
 
-        private static string VerifyGUIDForPrefabStage(string guid)
+        public static string VerifyGUIDForPrefabStage(string guid)
         {
             if (PrefabStageUtility.GetCurrentPrefabStage() == null) return guid;
 
