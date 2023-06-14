@@ -1,4 +1,3 @@
-using System;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEditor;
@@ -123,7 +122,16 @@ namespace Colorlink
                 }
             }
 
-            if (includeAssets) EditorSceneManager.SaveScene(EditorSceneManager.GetActiveScene(), EditorSceneManager.GetActiveScene().path);
+            if (includeAssets)
+            {
+                EditorSceneManager.SaveScene(EditorSceneManager.GetActiveScene(), EditorSceneManager.GetActiveScene().path);
+                if (PrefabStageUtility.GetCurrentPrefabStage() != null)
+                {
+                    var prefabPath = PrefabStageUtility.GetCurrentPrefabStage().assetPath;
+                    StageUtility.GoBackToPreviousStage();
+                    AssetDatabase.OpenAsset(AssetDatabase.LoadAssetAtPath<GameObject>(prefabPath));
+                }
+            }
         }
 
         public void ApplyColorsOnAllScenes()

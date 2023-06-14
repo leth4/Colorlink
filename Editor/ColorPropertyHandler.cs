@@ -21,24 +21,15 @@ namespace Colorlink
 
             if (!(propertyCopy.serializedObject.targetObject is Component) && !(propertyCopy.serializedObject.targetObject is ScriptableObject)) return;
 
+            var type = (guid.identifierType == 2 && !PrefabStageUtility.GetCurrentPrefabStage()) ? ColorProperty.Type.GameObject : ColorProperty.Type.Asset;
+            var guidString = VerifyGUIDForPrefabStage(guid.ToString());
+
             foreach (var colorGroup in PaletteObject.instance.ColorGroups)
             {
-                menu.AddItem(new GUIContent($"Link Color/{colorGroup.Name}"), colorGroup.Contains(guid.ToString(), propertyCopy.propertyPath), () =>
+                menu.AddItem(new GUIContent($"Link Color/{colorGroup.Name}"), colorGroup.Contains(guidString, propertyCopy.propertyPath), () =>
                 {
-                    var type = (guid.identifierType == 2) ? ColorProperty.Type.GameObject : ColorProperty.Type.Asset;
-                    if (PrefabStageUtility.GetCurrentPrefabStage() != null)
-                    {
-                        var prefabAsset = AssetDatabase.LoadAssetAtPath<GameObject>(PrefabStageUtility.GetCurrentPrefabStage().assetPath);
-                        var prefabGUID = GlobalObjectId.GetGlobalObjectIdSlow(prefabAsset);
-                        var newGUIDString = guid.ToString().Replace("-2-", "-1-").Replace("00000000000000000000000000000000", prefabGUID.assetGUID.ToString());
-                        PaletteObject.instance.AddProperty(colorGroup, new ColorProperty(newGUIDString, propertyCopy.propertyPath, ColorProperty.Type.Asset));
-                        PaletteObject.instance.ApplyColors(true);
-                    }
-                    else
-                    {
-                        PaletteObject.instance.AddProperty(colorGroup, new ColorProperty(guid.ToString(), propertyCopy.propertyPath, type));
-                        PaletteObject.instance.ApplyColors(type == ColorProperty.Type.Asset);
-                    }
+                    PaletteObject.instance.AddProperty(colorGroup, new ColorProperty(guidString, propertyCopy.propertyPath, type));
+                    PaletteObject.instance.ApplyColors(type == ColorProperty.Type.Asset);
                 });
             }
         }
@@ -51,9 +42,10 @@ namespace Colorlink
                 EditorGUI.BeginProperty(position, label, property);
 
                 var guid = GlobalObjectId.GetGlobalObjectIdSlow(property.serializedObject.targetObject);
+                var guidString = VerifyGUIDForPrefabStage(guid.ToString());
                 foreach (var colorGroup in PaletteObject.instance.ColorGroups)
                 {
-                    if (colorGroup.Contains(guid.ToString(), property.propertyPath))
+                    if (colorGroup.Contains(guidString, property.propertyPath))
                     {
                         label.text = "→ " + property.displayName;
                         break;
@@ -65,6 +57,15 @@ namespace Colorlink
 
                 EditorGUI.EndProperty();
             }
+        }
+
+        private static string VerifyGUIDForPrefabStage(string guid)
+        {
+            if (PrefabStageUtility.GetCurrentPrefabStage() == null) return guid;
+
+            var prefabAsset = AssetDatabase.LoadAssetAtPath<GameObject>(PrefabStageUtility.GetCurrentPrefabStage().assetPath);
+            var prefabGUID = GlobalObjectId.GetGlobalObjectIdSlow(prefabAsset);
+            return guid.ToString().Replace("-2-", "-1-").Replace("00000000000000000000000000000000", prefabGUID.assetGUID.ToString());
         }
     }
 }
