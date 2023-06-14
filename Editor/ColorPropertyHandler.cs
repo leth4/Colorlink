@@ -1,5 +1,6 @@
 using UnityEngine;
 using UnityEditor;
+using UnityEditor.SceneManagement;
 
 namespace Colorlink
 {
@@ -25,8 +26,19 @@ namespace Colorlink
                 menu.AddItem(new GUIContent($"Link Color/{colorGroup.Name}"), colorGroup.Contains(guid.ToString(), propertyCopy.propertyPath), () =>
                 {
                     var type = (guid.identifierType == 2) ? ColorProperty.Type.GameObject : ColorProperty.Type.Asset;
-                    PaletteObject.instance.AddProperty(colorGroup, new ColorProperty(guid.ToString(), propertyCopy.propertyPath, type));
-                    PaletteObject.instance.ApplyColors(type == ColorProperty.Type.Asset);
+                    if (PrefabStageUtility.GetCurrentPrefabStage() != null)
+                    {
+                        var prefabAsset = AssetDatabase.LoadAssetAtPath<GameObject>(PrefabStageUtility.GetCurrentPrefabStage().assetPath);
+                        var prefabGUID = GlobalObjectId.GetGlobalObjectIdSlow(prefabAsset);
+                        var newGUIDString = guid.ToString().Replace("-2-", "-1-").Replace("00000000000000000000000000000000", prefabGUID.assetGUID.ToString());
+                        PaletteObject.instance.AddProperty(colorGroup, new ColorProperty(newGUIDString, propertyCopy.propertyPath, ColorProperty.Type.Asset));
+                        PaletteObject.instance.ApplyColors(true);
+                    }
+                    else
+                    {
+                        PaletteObject.instance.AddProperty(colorGroup, new ColorProperty(guid.ToString(), propertyCopy.propertyPath, type));
+                        PaletteObject.instance.ApplyColors(type == ColorProperty.Type.Asset);
+                    }
                 });
             }
         }
