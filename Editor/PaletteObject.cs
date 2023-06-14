@@ -48,6 +48,14 @@ namespace Colorlink
             ColorGroups.Remove(colorGroup);
         }
 
+        public void RemoveProperty(string guidString, string propertyPath)
+        {
+            foreach (var group in ColorGroups)
+            {
+                group.RemoveProperty(guidString, propertyPath);
+            }
+        }
+
         public void AddProperty(ColorGroup colorGroup, ColorProperty property)
         {
             foreach (var group in ColorGroups)

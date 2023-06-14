@@ -12,7 +12,6 @@ namespace Colorlink
         [MenuItem("CONTEXT/Component/Copy Color Links", false, 10000)]
         private static void CopyColorLinks(MenuCommand command)
         {
-            Buffer = new Dictionary<Type, Dictionary<string, ColorGroup>>();
             var guid = GlobalObjectId.GetGlobalObjectIdSlow(command.context);
             var guidString = ColorPropertyHandler.VerifyGUIDForPrefabStage(guid.ToString());
             var type = command.context.GetType();
@@ -25,15 +24,13 @@ namespace Colorlink
                 properties.Add(serializedProperty.propertyPath);
             }
 
+            Buffer[type] = new Dictionary<string, ColorGroup>();
+
             foreach (var colorGroup in PaletteObject.instance.ColorGroups)
             {
                 foreach (var property in properties)
                 {
                     if (!colorGroup.Contains(guidString, property)) continue;
-
-                    if (!Buffer.ContainsKey(type))
-                        Buffer.Add(type, new Dictionary<string, ColorGroup>());
-
                     Buffer[type].Add(property, colorGroup);
                 }
             }
@@ -55,6 +52,7 @@ namespace Colorlink
             while (serializedProperty.NextVisible(true))
             {
                 properties.Add(serializedProperty.Copy());
+                PaletteObject.instance.RemoveProperty(guidString, properties[^1].propertyPath);
             }
 
             foreach (var propertyLink in Buffer[type])
